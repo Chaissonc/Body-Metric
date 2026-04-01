@@ -52,3 +52,44 @@ background-color: #fefefe;
   height:30px;
   background-color: hsl(0, 0%, 100%);
 }
+
+.heightInputs {
+  display: flex;
+  gap: 8px;
+}
+
+.heightInputs input {
+  flex: 1;
+}
+
+.activitySelect {
+  border-radius: 8px;
+  border: none;
+  height: 34px;
+  padding: 0 8px;
+  background-color: #fefefe;
+  font-size: 0.9rem;
+}
+
+.sexButtons {
+  display: flex;
+  gap: 8px;
+}
+
+.sexButton {
+  flex: 1;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  height: 34px;
+  background-color: #fefefe;
+  cursor: pointer;
+  font-weight: bold;
+  color: #555;
+  transition: all 0.15s;
+}
+
+.sexButton.active {
+  border-color: #4a90e2;
+  background-color: #4a90e2;
+  color: #fff;
+}

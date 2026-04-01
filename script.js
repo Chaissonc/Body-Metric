@@ -1,21 +1,32 @@
+let selectedSex = null;
+
+function selectSex(btn, sex) {
+  selectedSex = sex;
+  document.querySelectorAll(".sexButton").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+}
+
 function calculate() {
   const weight = parseFloat(document.querySelector(".bodyWeight").value);
-  const height = parseFloat(document.querySelector(".height").value);
+  const heightFt = parseFloat(document.querySelector(".heightFt").value)
+  const heightIn = parseFloat(document.querySelector(".heightIn").value);
+  const height = (heightFt * 12) + heightIn;
   const age = parseFloat(document.querySelector(".age").value);
 
-  if (!weight || !height || !age) {
+  const activityFactor = parseFloat(document.querySelector(".activitySelect").value);
+
+  //Input Check
+  if (!weight || !height || !age || !selectedSex || !activityFactor) {
     document.getElementById("result").textContent = "Please fill in all fields.";
     return;
   }
 
-  // Convert lbs to kg and inches to meters (assuming imperial input)
-  const weightKg = weight * 0.453592;
-  const heightM = height * 0.0254;
+  // Mifflin-St Jeor BMR (imperial: lbs & inches)
+  const bmrBase = (4.536 * weight) + (12.7 * height) - (5 * age);
+  const bmr = selectedSex === "male" ? bmrBase + 5 : bmrBase - 161;
 
-  // BMI-based body fat estimate (Deurenberg formula)
-  const bmi = weightKg / (heightM * heightM);
-  const bodyFat = (1.2 * bmi) + (0.23 * age) - 16.2;
+  const tdee = bmr * activityFactor;
 
   document.getElementById("result").textContent =
-    `Estimated Body Fat: ${bodyFat.toFixed(1)}%`;
+    `BMR: ${Math.round(bmr)} cal/day | TDEE: ${Math.round(tdee)} cal/day`;
 }
