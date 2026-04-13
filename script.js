@@ -193,7 +193,7 @@ function updateTargetCalFromGoal() {
     maintain: { slow: 0,    moderate: 0,    aggressive: 0    },
     bulk:     { slow: 250,  moderate: 500,  aggressive: 750  }
   };
-  var offset = selectedGoal === "maintain" ? 0 : offsets[selectedGoal][selectedIntensity];
+  var offset = offsets[selectedGoal][selectedIntensity];
   document.getElementById("targetCalInput").value = Math.round(tdee + offset);
 }
 
