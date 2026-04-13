@@ -2,7 +2,7 @@ let selectedSex = null;
 let tdee = 0;
 let currentWeightLbs = 0;
 let selectedGoal = null;
-let selectedIntensity = 'moderate';
+let selectedIntensity = "moderate";
 
 function selectSex(btn, sex) {
   selectedSex = sex;
@@ -12,7 +12,6 @@ function selectSex(btn, sex) {
 
 function calculate() {
   const inputWeight = parseFloat(document.querySelector(".bodyWeight").value);
-  currentWeightLbs = inputWeight;
   const inputHeightFt = parseFloat(document.querySelector(".heightFt").value);
   const inputHeightIn = parseFloat(document.querySelector(".heightIn").value);
   const age = parseFloat(document.querySelector(".age").value);
@@ -23,6 +22,7 @@ function calculate() {
     return;
   }
   document.getElementById("formError").textContent = "";
+  currentWeightLbs = inputWeight;
 
   const heightIn = (inputHeightFt * 12) + inputHeightIn;
   const weightKg = inputWeight / 2.2;
