@@ -144,6 +144,10 @@ function showGoalPlanner() {
   document.getElementById("results").classList.remove("active");
   document.getElementById("goalPanel").classList.add("active");
   document.getElementById("goal-tdee").textContent = Math.round(tdee).toLocaleString();
+  if (selectedGoal) {
+    updateTargetCalFromGoal();
+    updateGoalPlanner();
+  }
 }
 
 function showOverview() {
@@ -198,6 +202,7 @@ function updateTargetCalFromGoal() {
 }
 
 function updateTimeToGoal(targetCals) {
+  if (!selectedGoal) return;
   var goalWeight  = parseFloat(document.getElementById("goalWeightInput").value);
   var warningEl   = document.getElementById("goalWarning");
   var timeEl      = document.getElementById("timeToGoal");
