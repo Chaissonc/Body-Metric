@@ -1,4 +1,8 @@
 let selectedSex = null;
+let tdee = 0;
+let currentWeightLbs = 0;
+let selectedGoal = null;
+let selectedIntensity = 'moderate';
 
 function selectSex(btn, sex) {
   selectedSex = sex;
@@ -8,6 +12,7 @@ function selectSex(btn, sex) {
 
 function calculate() {
   const inputWeight = parseFloat(document.querySelector(".bodyWeight").value);
+  currentWeightLbs = inputWeight;
   const inputHeightFt = parseFloat(document.querySelector(".heightFt").value);
   const inputHeightIn = parseFloat(document.querySelector(".heightIn").value);
   const age = parseFloat(document.querySelector(".age").value);
@@ -32,7 +37,7 @@ function calculate() {
   const bmi = weightKg / (heightM * heightM);
 
   // TDEE
-  const tdee = bmr * activityFactor;
+  tdee = bmr * activityFactor;
 
   // Body Fat % (BMI-based)
   const sexFactor = selectedSex === "male" ? 1 : 0;
@@ -126,4 +131,16 @@ function showResults() {
 function showForm() {
   document.getElementById("results").classList.remove("active");
   document.getElementById("formPanel").classList.add("active");
+}
+
+function showGoalPlanner() {
+  document.getElementById("formPanel").classList.remove("active");
+  document.getElementById("results").classList.remove("active");
+  document.getElementById("goalPanel").classList.add("active");
+  document.getElementById("goal-tdee").textContent = Math.round(tdee).toLocaleString();
+}
+
+function showOverview() {
+  document.getElementById("goalPanel").classList.remove("active");
+  document.getElementById("results").classList.add("active");
 }
