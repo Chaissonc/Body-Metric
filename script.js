@@ -32,9 +32,13 @@ function calculate() {
   const bodyFat = Math.max(0, 1.2 * bmi + 0.23 * age - 10.8 * sexFactor - 5.4);
 
   const inchesOver5ft = Math.max(0, totalIn - 60);
-  const idealKg  = selectedSex === "male" ? 50 + 2.3 * inchesOver5ft : 45.5 + 2.3 * inchesOver5ft;
-  const idealMin = idealKg * 2.205;
-  const idealMax = idealMin + 20;
+  const ibwKg    = selectedSex === "male" ? 50 + 2.3 * inchesOver5ft : 45.5 + 2.3 * inchesOver5ft;
+  const ibwLbs   = ibwKg * 2.205;
+  const idealMin = ibwLbs;
+  const idealMax = ibwLbs + 30;
+
+  const minWeightKg  = 18.5 * (heightM * heightM);
+  const minWeightLbs = minWeightKg * 2.205;
 
   let bmiCat = "Underweight";
   if (bmi >= 18.5 && bmi < 25) bmiCat = "Healthy Range";
@@ -46,23 +50,21 @@ function calculate() {
     bodyFat >= (selectedSex === "male" ? 8 : 16) &&
     bodyFat <= (selectedSex === "male" ? 20 : 28);
 
-  // Form inputs
-  localStorage.setItem("bm_age",      age);
-  localStorage.setItem("bm_heightFt", heightFt);
-  localStorage.setItem("bm_heightIn", heightIn);
-  localStorage.setItem("bm_weight",   weight);
-  localStorage.setItem("bm_sex",      selectedSex);
-  localStorage.setItem("bm_activity", activityFactor);
-
-  // Computed values
-  localStorage.setItem("bm_bmi",      bmi.toFixed(1));
-  localStorage.setItem("bm_bmiCat",   bmiCat);
-  localStorage.setItem("bm_bmr",      Math.round(bmr));
-  localStorage.setItem("bm_tdee",     Math.round(tdee));
-  localStorage.setItem("bm_bodyfat",  bodyFat.toFixed(1));
-  localStorage.setItem("bm_idealMin", idealMin.toFixed(1));
-  localStorage.setItem("bm_idealMax", idealMax.toFixed(1));
-  localStorage.setItem("bm_status",   isOptimal ? "OPTIMAL" : "REVIEW");
+  localStorage.setItem("bm_age",       age);
+  localStorage.setItem("bm_heightFt",  heightFt);
+  localStorage.setItem("bm_heightIn",  heightIn);
+  localStorage.setItem("bm_weight",    weight);
+  localStorage.setItem("bm_sex",       selectedSex);
+  localStorage.setItem("bm_activity",  activityFactor);
+  localStorage.setItem("bm_bmi",       bmi.toFixed(1));
+  localStorage.setItem("bm_bmiCat",    bmiCat);
+  localStorage.setItem("bm_bmr",       Math.round(bmr));
+  localStorage.setItem("bm_tdee",      Math.round(tdee));
+  localStorage.setItem("bm_bodyfat",   bodyFat.toFixed(1));
+  localStorage.setItem("bm_idealMin",  idealMin.toFixed(1));
+  localStorage.setItem("bm_idealMax",  idealMax.toFixed(1));
+  localStorage.setItem("bm_minWeight", minWeightLbs.toFixed(1));
+  localStorage.setItem("bm_status",    isOptimal ? "OPTIMAL" : "REVIEW");
 
   window.location.href = "healthindex/";
 }

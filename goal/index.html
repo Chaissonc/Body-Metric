@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Sarx — Goal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="../assets/favicon.png">
+  <link rel="apple-touch-icon" href="../assets/icon.jpg">
+  <meta property="og:title" content="Sarx — Know your body.">
+  <meta property="og:description" content="Your curated health index. BMI, TDEE, body fat, and goal planning.">
+  <meta property="og:image" content="../assets/icon.jpg">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="app">
+  <div class="screen active">
+    <a href="../"><img class="logo-img" src="../assets/logo.png" alt="Sarx"></a>
+    <p class="section-tag">STATUS • OPTIMAL</p>
+    <div class="title-row">
+      <h2 class="screen-title">Your Goal</h2>
+      <a class="edit-btn" href="../">Edit</a>
+    </div>
+    <div class="stats-bar" id="stats-bar"></div>
+
+    <div class="form-body">
+      <div class="field-group">
+        <label class="field-label">TARGET WEIGHT</label>
+        <div class="input-row">
+          <input id="goalWeightInput" type="number" inputmode="decimal" class="field-input" placeholder="185">
+          <span class="input-unit">LBS</span>
+        </div>
+        <p id="goalStatusLine" class="goal-status-line"></p>
+        <div id="intensitySection" style="height:0;overflow:hidden;opacity:0;margin-top:0;pointer-events:none;">
+          <label class="field-label" style="margin-top:14px;display:block;">AGGRESSION LEVEL</label>
+          <div class="seg-row">
+            <button class="seg-btn intensity-btn" data-intensity="slow" onclick="selectIntensity(this,'slow')">SLOW</button>
+            <button class="seg-btn intensity-btn" data-intensity="moderate" onclick="selectIntensity(this,'moderate')">MODERATE</button>
+            <button class="seg-btn intensity-btn" data-intensity="aggressive" onclick="selectIntensity(this,'aggressive')">AGGRESSIVE</button>
+          </div>
+        </div>
+        <p id="goalWarning" class="goal-warning"></p>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label" style="margin-top: -20px;">DAILY TARGET</label>
+        <div class="obj-cal-card">
+          <div class="obj-cal-row">
+            <div class="obj-cal-edit">
+              <svg class="edit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+              </svg>
+              <input id="targetCalInput" type="number" inputmode="decimal" class="daily-target-input" placeholder="—">
+              <span class="daily-target-unit">KCAL</span>
+            </div>
+          </div>
+          <p id="calDeltaLabel" class="cal-delta"></p>
+          <p id="timeToGoal" class="time-to-goal"></p>
+        </div>
+      </div>
+
+      <div class="macro-row" id="macroSection" style="display:none;">
+        <div class="macro-item">
+          <span class="macro-label">PROTEIN</span>
+          <div class="macro-val"><span id="macro-protein">--</span><span class="macro-unit">g</span></div>
+          <span id="macro-protein-pct" class="macro-pct">--</span>
+        </div>
+        <div class="macro-item">
+          <span class="macro-label">CARBS</span>
+          <div class="macro-val"><span id="macro-carbs">--</span><span class="macro-unit">g</span></div>
+          <span id="macro-carbs-pct" class="macro-pct">--</span>
+        </div>
+        <div class="macro-item">
+          <span class="macro-label">FATS</span>
+          <div class="macro-val"><span id="macro-fat">--</span><span class="macro-unit">g</span></div>
+          <span id="macro-fat-pct" class="macro-pct">--</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <nav class="tab-bar">
+    <button class="tab-item" onclick="location.href='../healthindex/'">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22" aria-hidden="true">
+        <rect x="3" y="13" width="4" height="8" rx="1"/>
+        <rect x="10" y="8" width="4" height="13" rx="1"/>
+        <rect x="17" y="3" width="4" height="18" rx="1"/>
+      </svg>
+      <span>Index</span>
+    </button>
+    <button class="tab-item active" onclick="location.href='./'">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22" aria-hidden="true">
+        <path d="M12 2a5 5 0 1 1 0 10A5 5 0 0 1 12 2zm0 12c5.33 0 8 2.67 8 4v2H4v-2c0-1.33 2.67-4 8-4z"/>
+      </svg>
+      <span>Goal</span>
+    </button>
+    <button class="tab-item" onclick="location.href='../learning/'">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22" aria-hidden="true">
+        <path d="M12 3 4 7v13l8-4 8 4V7L12 3zm6 17-6-3-6 3V8.5l6-3 6 3V20z"/>
+      </svg>
+      <span>Learn</span>
+    </button>
+  </nav>
+</div>
+<script src="goal.js"></script>
+</body>
+</html>
