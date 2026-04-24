@@ -16,7 +16,7 @@
 <body>
 <div class="app">
   <div class="screen active">
-    <img class="logo-img" src="../assets/logo.png" alt="Sarx">
+    <a href="../"><img class="logo-img" src="../assets/logo.png" alt="Sarx"></a>
     <p class="section-tag" id="status-tag">STATUS • —</p>
     <div class="title-row">
       <h2 class="screen-title">Your Health Index</h2>
@@ -25,12 +25,12 @@
     <div class="stats-bar" id="stats-bar"></div>
 
     <div class="metric-pair">
-      <div class="metric-card">
+      <div class="metric-card anim-card anim-d1">
         <span class="metric-label">BMI</span>
         <span class="metric-value" id="val-bmi">--</span>
         <span class="metric-sub" id="bmi-category">--</span>
       </div>
-      <div class="metric-card slide-card" id="slide-card">
+      <div class="metric-card slide-card anim-card anim-d2" id="slide-card">
         <div class="slide-panel" style="transform:translateX(0)">
           <span class="metric-label">TDEE</span>
           <span class="metric-value" id="val-tdee">--</span>
@@ -48,7 +48,7 @@
       </div>
     </div>
 
-    <div class="metric-card full">
+    <div class="metric-card full anim-card anim-d3">
       <span class="metric-label">BODY FAT PERCENTAGE</span>
       <span class="metric-value-lg" id="val-bodyfat">--</span>
       <div class="gbar-wrap">
@@ -56,12 +56,12 @@
           <div class="gbar-dot" id="bf-dot"></div>
         </div>
         <div class="gbar-labels">
-          <span>Athletic</span><span>Average</span><span>Obese</span>
+          <span>Athletic</span><span>Healthy</span><span>Obese</span>
         </div>
       </div>
     </div>
 
-    <div class="metric-card full">
+    <div class="metric-card full anim-card anim-d4">
       <span class="metric-label">WEIGHT</span>
       <span class="metric-value-lg" id="val-weight">--</span>
       <div class="gbar-wrap">
@@ -69,7 +69,7 @@
           <div class="gbar-dot" id="weight-dot"></div>
         </div>
         <div class="gbar-labels">
-          <span>Low</span><span>Average</span><span>Slightly High</span><span>High</span>
+          <span>Low</span><span>Healthy</span><span>Slightly High</span><span>High</span>
         </div>
       </div>
     </div>
@@ -140,15 +140,14 @@
       { label: "SEX",      value: sex === "male" ? "Male" : "Female" },
       { label: "ACTIVITY", value: activityLabels[activity] || activity }
     ];
-    document.getElementById("stats-bar").innerHTML = stats.map(function (s) {
-      return '<div class="stat-chip"><span class="stat-chip-label">' + s.label +
+    document.getElementById("stats-bar").innerHTML = stats.map(function (s, i) {
+      return '<div class="stat-chip" style="animation: chipIn 0.35s ease ' + (i * 0.07) + 's both"><span class="stat-chip-label">' + s.label +
              '</span><span class="stat-chip-value">' + s.value + '</span></div>';
     }).join("");
 
     // Gradient bar — body fat
     var maxBf = sex === "male" ? 35 : 45;
     var bfPct = Math.min(95, Math.max(5, (parseFloat(bodyFat) / maxBf) * 100));
-    document.getElementById("bf-dot").style.left = bfPct + "%";
 
     // Gradient bar — weight
     var w = parseFloat(weight);
@@ -165,7 +164,15 @@
     } else {
       wPct = 95;
     }
-    document.getElementById("weight-dot").style.left = Math.min(95, Math.max(5, wPct)) + "%";
+    var wFinal = Math.min(95, Math.max(5, wPct));
+
+    // Animate dots from left edge after paint
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        document.getElementById("bf-dot").style.left = bfPct + "%";
+        document.getElementById("weight-dot").style.left = wFinal + "%";
+      });
+    });
   })();
 
   // Slide card

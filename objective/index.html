@@ -16,7 +16,7 @@
 <body>
 <div class="app">
   <div class="screen active">
-    <img class="logo-img" src="../assets/logo.png" alt="Sarx">
+    <a href="../"><img class="logo-img" src="../assets/logo.png" alt="Sarx"></a>
     <p class="section-tag">STATUS • OPTIMAL</p>
     <div class="title-row">
       <h2 class="screen-title">Your Objective</h2>
@@ -42,7 +42,7 @@
         </div>
       </div>
 
-      <div id="intensitySection" class="field-group" style="display:none;">
+      <div id="intensitySection" class="field-group" style="height:0;overflow:hidden;opacity:0;margin-top:-18px;margin-bottom:-18px;pointer-events:none;">
         <label class="field-label">AGGRESSION LEVEL</label>
         <div class="seg-row">
           <button class="seg-btn intensity-btn" data-intensity="slow" onclick="selectIntensity(this,'slow')">SLOW</button>
@@ -51,7 +51,7 @@
         </div>
       </div>
 
-      <div class="field-group">
+      <div class="field-group" style="margin-top: 50px;">
         <label class="field-label">DAILY TARGET</label>
         <div class="obj-cal-card">
           <div class="obj-cal-row">
@@ -136,8 +136,8 @@
       { label: "SEX",      value: sex === "male" ? "Male" : "Female" },
       { label: "ACTIVITY", value: activityLabels[activity] || activity }
     ];
-    document.getElementById("stats-bar").innerHTML = stats.map(function (s) {
-      return '<div class="stat-chip"><span class="stat-chip-label">' + s.label +
+    document.getElementById("stats-bar").innerHTML = stats.map(function (s, i) {
+      return '<div class="stat-chip" style="animation: chipIn 0.35s ease ' + (i * 0.07) + 's both"><span class="stat-chip-label">' + s.label +
              '</span><span class="stat-chip-value">' + s.value + '</span></div>';
     }).join("");
   })();
@@ -150,9 +150,44 @@
 
     var section = document.getElementById("intensitySection");
     if (goal === "maintain") {
-      section.style.display = "none";
+      var h = section.offsetHeight;
+      section.style.transition = "";
+      section.style.overflow = "hidden";
+      section.style.height = h + "px";
+      requestAnimationFrame(function () {
+        section.style.transition = "height 0.32s ease, opacity 0.25s ease, margin-top 0.32s ease, margin-bottom 0.32s ease";
+        section.style.height = "0px";
+        section.style.opacity = "0";
+        section.style.marginTop = "-18px";
+        section.style.marginBottom = "-18px";
+        section.style.pointerEvents = "none";
+        section.addEventListener("transitionend", function onDone(e) {
+          if (e.propertyName !== "height") return;
+          section.removeEventListener("transitionend", onDone);
+          section.style.transition = "";
+        });
+      });
     } else {
-      section.style.display = "";
+      section.style.transition = "";
+      section.style.pointerEvents = "";
+      var naturalHeight = section.scrollHeight;
+      requestAnimationFrame(function () {
+        section.style.transition = "height 0.32s ease, opacity 0.28s ease, margin-top 0.32s ease, margin-bottom 0.32s ease";
+        section.style.height = naturalHeight + "px";
+        section.style.opacity = "1";
+        section.style.marginTop = "0px";
+        section.style.marginBottom = "0px";
+        section.addEventListener("transitionend", function onExpand(e) {
+          if (e.propertyName !== "height") return;
+          section.removeEventListener("transitionend", onExpand);
+          section.style.overflow = "";
+          section.style.height = "";
+          section.style.transition = "";
+          section.style.opacity = "";
+          section.style.marginTop = "";
+          section.style.marginBottom = "";
+        });
+      });
       selectedIntensity = localStorage.getItem("bm_intensity") || "moderate";
       document.querySelectorAll(".intensity-btn").forEach(function (b) { b.classList.remove("active"); });
       var activeBtn = document.querySelector('.intensity-btn[data-intensity="' + selectedIntensity + '"]');
@@ -223,7 +258,9 @@
 
     if (targetCals <= 0) {
       deltaEl.textContent = "";
-      document.getElementById("macroSection").style.display = "none";
+      var ms = document.getElementById("macroSection");
+      ms.style.display = "none";
+      ms.classList.remove("anim-show");
       document.getElementById("goalWarning").textContent = "";
       document.getElementById("timeToGoal").textContent = "";
       return;
@@ -250,7 +287,13 @@
     document.getElementById("macro-protein").textContent = Math.round(targetCals * split.protein / 4);
     document.getElementById("macro-carbs").textContent   = Math.round(targetCals * split.carbs / 4);
     document.getElementById("macro-fat").textContent     = Math.round(targetCals * split.fat / 9);
-    document.getElementById("macroSection").style.display = "flex";
+    var macroEl = document.getElementById("macroSection");
+    var wasHidden = macroEl.style.display === "none" || macroEl.style.display === "";
+    macroEl.style.display = "flex";
+    if (wasHidden) {
+      macroEl.classList.remove("anim-show");
+      requestAnimationFrame(function () { macroEl.classList.add("anim-show"); });
+    }
 
     updateTimeToGoal(targetCals);
   }
@@ -267,7 +310,7 @@
 
       var section = document.getElementById("intensitySection");
       if (selectedGoal !== "maintain") {
-        section.style.display = "";
+        section.style.cssText = "";
         var intBtn = document.querySelector('.intensity-btn[data-intensity="' + selectedIntensity + '"]');
         if (intBtn) intBtn.classList.add("active");
       }
@@ -289,6 +332,14 @@
 
     document.getElementById("goalWeightInput").addEventListener("input", function () {
       localStorage.setItem("bm_goalWeight", this.value);
+      var gw = parseFloat(this.value);
+      if (gw && currentWeight) {
+        var autoGoal = gw > currentWeight ? "lean-bulk" : gw < currentWeight ? "cut" : "maintain";
+        if (autoGoal !== selectedGoal) {
+          var btn = document.querySelector('.goal-btn[onclick*="' + autoGoal + '"]');
+          if (btn) { selectGoal(btn, autoGoal); return; }
+        }
+      }
       var targetCals = parseFloat(document.getElementById("targetCalInput").value) || 0;
       updateTimeToGoal(targetCals);
     });
