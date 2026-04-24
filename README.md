@@ -1,4 +1,4 @@
-# Body Metric
+# Sarx
 
 A lightweight, client-side body metrics calculator built with vanilla HTML, CSS, and JavaScript. Enter your age, height, weight, sex, and activity level to instantly get a personalized breakdown of your key health numbers.
 
@@ -37,12 +37,10 @@ cd Body-Metric
 open index.html
 ```
 
-Or just visit the [live site](https://chaissonc.github.io/Body-Metric/).
-
 ## Project Structure
 
 ```
-Body-Metric/
+Sarx/
 ├── index.html      # App markup and layout
 ├── style.css       # Styling and responsive design
 ├── script.js       # Metric calculations and UI logic
