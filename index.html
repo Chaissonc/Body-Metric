@@ -5,15 +5,48 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Sarx</title>
+  <title>Sarx — Free Health Index Calculator | BMI, TDEE &amp; Body Fat</title>
+  <link rel="canonical" href="https://sarx.app/">
+  <meta name="description" content="Calculate your BMI, TDEE, and body fat percentage for free. Sarx gives you a personalized health index — no account required.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap"></noscript>
+  <link rel="preload" as="image" href="assets/logo.png">
   <link rel="icon" type="image/png" href="assets/favicon.png">
   <link rel="apple-touch-icon" href="assets/icon.jpg">
+  <link rel="manifest" href="/manifest.json">
   <meta property="og:title" content="Sarx — Know your body.">
-  <meta property="og:description" content="Your curated health index. BMI, TDEE, body fat, and goal planning.">
-  <meta property="og:image" content="assets/socialImage.png">
+  <meta property="og:description" content="Calculate your BMI, TDEE, and body fat for free. Your personalized health index — no account required.">
+  <meta property="og:image" content="https://sarx.app/assets/socialImage.png">
+  <meta property="og:url" content="https://sarx.app/">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="stylesheet" href="style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Sarx",
+    "url": "https://sarx.app",
+    "description": "Evidence-based wellness hub for calculating BMI, TDEE, body fat percentage, and personalized nutrition planning."
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Sarx",
+    "url": "https://sarx.app",
+    "description": "A free wellness web app that calculates BMI, TDEE, BMR, and body fat percentage from your baseline metrics. Includes personalized calorie and macro planning, and an evidence-ranked wellness library.",
+    "applicationCategory": "HealthApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "featureList": ["BMI calculator", "TDEE calculator", "BMR calculator", "Body fat percentage estimator", "Calorie goal planner", "Macro breakdown", "Evidence-ranked wellness guides"],
+    "screenshot": "https://sarx.app/assets/socialImage.png"
+  }
+  </script>
 </head>
 <body>
 <div class="app">
@@ -77,5 +110,6 @@
   </div>
 </div>
 <script src="script.js"></script>
+<script src="/pwa.js"></script>
 </body>
 </html>

@@ -5,14 +5,23 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Sarx — Learn</title>
+  <title>Wellness Learning Library — Evidence-Ranked Guides | Sarx</title>
+  <link rel="canonical" href="https://sarx.app/learning/">
+  <meta name="description" content="Evidence-ranked wellness guides on supplements, gut health, sleep, hydration, training, and nutrition. Ranked by clinical evidence, not marketing.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap"></noscript>
   <link rel="icon" type="image/png" href="../assets/favicon.png">
   <link rel="apple-touch-icon" href="../assets/icon.jpg">
-  <meta property="og:title" content="Sarx — Know your body.">
-  <meta property="og:description" content="Your curated health index. BMI, TDEE, body fat, and goal planning.">
-  <meta property="og:image" content="../assets/socialImage.png">
+  <link rel="manifest" href="/manifest.json">
+  <meta property="og:title" content="Learn — Wellness Library | Sarx">
+  <meta property="og:description" content="Evidence-ranked wellness guides on supplements, gut health, sleep, hydration, training, and nutrition.">
+  <meta property="og:image" content="https://sarx.app/assets/socialImage.png">
+  <meta property="og:url" content="https://sarx.app/learning/">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="stylesheet" href="../style.css">
 </head>
 <body>
@@ -20,7 +29,7 @@
   <div class="screen active">
     <p class="section-tag">SARX STATUS • OPTIMAL</p>
     <div class="title-row">
-      <h2 class="screen-title">Learning</h2>
+      <h1 class="screen-title">Learning</h1>
       <button class="menu-btn" onclick="openMenu()" aria-label="Open menu">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22" aria-hidden="true">
           <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
@@ -105,5 +114,6 @@
     <div class="menu-toast" id="menu-toast"></div>
   </div>
 <script src="../menu.js"></script>
+<script src="/pwa.js"></script>
 </body>
 </html>
