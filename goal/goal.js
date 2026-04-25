@@ -235,11 +235,12 @@ document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("goalWeightInput").addEventListener("input", function () {
     localStorage.setItem("bm_goalWeight", this.value);
     var gw = parseFloat(this.value);
-    var warningEl = document.getElementById("goalWarning");
+    var warningEl   = document.getElementById("goalWarning");
+    var statusLine  = document.getElementById("goalStatusLine");
 
     if (!gw || gw < 80) {
       warningEl.textContent = "";
-      document.getElementById("goalStatusLine").textContent = !gw ? "Enter your goal weight to get started" : "";
+      statusLine.textContent = !gw ? "Enter your goal weight to get started" : "";
       document.getElementById("targetCalInput").value = "";
       document.getElementById("calDeltaLabel").textContent = "";
       document.getElementById("timeToGoal").textContent = "";
@@ -249,9 +250,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     if (recMin && gw < recMin) {
-      var sl = document.getElementById("goalStatusLine");
-      sl.textContent = "Below minimum recommended weight";
-      sl.style.color = "#f0a020";
+      statusLine.textContent = "Below minimum recommended weight";
+      statusLine.style.color = "#f0a020";
       warningEl.textContent = "";
       document.getElementById("targetCalInput").value = "";
       document.getElementById("calDeltaLabel").textContent = "";
@@ -262,9 +262,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     if (gw > recMax) {
-      var sl2 = document.getElementById("goalStatusLine");
-      sl2.textContent = "Set a more realistic target weight";
-      sl2.style.color = "#f0a020";
+      statusLine.textContent = "Set a more realistic target weight";
+      statusLine.style.color = "#f0a020";
       warningEl.textContent = "";
       document.getElementById("targetCalInput").value = "";
       document.getElementById("calDeltaLabel").textContent = "";

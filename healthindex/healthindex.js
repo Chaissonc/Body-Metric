@@ -41,7 +41,6 @@
            '</span><span class="stat-chip-value">' + s.value + '</span></div>';
   }).join("");
 
-  // Ideal body fat range by sex
   var bfIdealLow  = sex === "male" ? 8  : 16;
   var bfIdealHigh = sex === "male" ? 20 : 28;
   var rangeEl = document.getElementById("bf-ideal-range");
