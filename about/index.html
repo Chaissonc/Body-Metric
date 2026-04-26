@@ -14,28 +14,69 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap" media="print" onload="this.media='all'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap"></noscript>
   <link rel="icon" type="image/png" href="../assets/favicon.png">
-  <link rel="apple-touch-icon" href="../assets/icon.jpg">
+  <link rel="apple-touch-icon" href="../assets/icon.png">
   <link rel="manifest" href="/manifest.json">
   <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <div class="app">
-  <div class="screen active" style="display:flex; flex-direction:column; min-height:calc(100vh - 100px);">
+  <div class="screen active">
 
     <div class="topic-nav">
-      <a href="../" class="topic-back">
+      <a href="javascript:history.back()" class="topic-back">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
         Back
       </a>
-      
       <span class="topic-nav-spacer"></span>
     </div>
 
-    <div style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding: 0 24px 40px;">
-      <p style="font-size:3rem; margin-bottom:20px;">🔭</p>
-      <p class="section-tag" style="margin-bottom:10px;">ABOUT SARX</p>
-      <h1 style="font-size:1.65rem; font-weight:800; color:#1a1a1a; margin-bottom:12px;">Coming Soon</h1>
-      <p style="font-size:0.85rem; color:#888; line-height:1.6; max-width:260px;">More info about Sarx, the team, and the mission is on the way.</p>
+    <p class="section-tag">SARX</p>
+    <h1 class="screen-title" style="margin-bottom: 24px;">About</h1>
+
+    <div class="about-body">
+
+      <div class="about-card">
+        <p class="about-card-label">BUILT BY</p>
+        <div class="about-creator-row">
+          <div class="about-creator-avatar">C</div>
+          <div>
+            <p class="about-creator-name">Chaisson Cook</p>
+            <p class="about-creator-role">Designer & Developer · Las Vegas, NV</p>
+          </div>
+        </div>
+        <div class="about-divider"></div>
+        <p>I built Sarx because I couldn't find a tool that gave me everything I needed in one place — without having to already know what I was looking for. I wanted something that met people where they are and walked them forward.</p>
+        <p>Everything in this app is built with user experience as the first priority. If something feels like work, it gets redesigned until it doesn't.</p>
+      </div>
+
+      <div class="about-card">
+        <p class="about-card-label">THE PROBLEM</p>
+        <p class="about-card-title">Most health tools either overwhelm you or tell you nothing useful.</p>
+        <p>Other calculators throw a single number at you with no context. What does your BMI actually mean? How does your TDEE connect to your goals? What's a caloric deficit, and why does it matter?</p>
+        <p>Most people leave those tools more confused than when they arrived — or they just stop caring.</p>
+      </div>
+
+      <div class="about-card">
+        <p class="about-card-label">WHY SARX EXISTS</p>
+        <p class="about-card-title">Your health, in plain language.</p>
+        <p>Sarx was built for everyday people who want to finally understand their body — not just see a number, but know what it means and what to do about it.</p>
+        <p>Every screen is designed to remove friction. No sign-ups to get started. No noise. Just your data, clearly explained, with your next step right in front of you.</p>
+      </div>
+
+      <div class="about-card">
+        <p class="about-card-label">THE SCIENCE</p>
+        <p class="about-card-title">Trusted formulas. Real evidence.</p>
+        <p>Every calculation in Sarx is based on widely accepted, peer-reviewed formulas used by researchers and registered dietitians — including the <span class="about-red">Mifflin-St Jeor equation</span> for BMR, the <span class="about-red">Katch-McArdle</span> body fat method, and established activity multipliers for TDEE.</p>
+        <p>The Learning Library ranks habits and supplements by clinical evidence tier — so you always know what's well-supported versus what's just trending.</p>
+        <div class="about-pill-row">
+          <span class="about-pill">Mifflin-St Jeor BMR</span>
+          <span class="about-pill">Katch-McArdle BF%</span>
+          <span class="about-pill">Harris-Benedict TDEE</span>
+          <span class="about-pill">Evidence-ranked content</span>
+        </div>
+      </div>
+
     </div>
 
   </div>
@@ -63,6 +104,6 @@
     </button>
   </nav>
 </div>
-<script src="/pwa.js"></script>
+<script src="/js/pwa.js"></script>
 </body>
 </html>

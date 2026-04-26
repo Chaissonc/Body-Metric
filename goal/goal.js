@@ -151,7 +151,7 @@ function updateTimeToGoal(targetCals) {
   var projected = new Date(Date.now() + days * 24 * 60 * 60 * 1000);
   var monthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
   var dateStr = monthNames[projected.getMonth()] + " " + projected.getDate() + ", " + projected.getFullYear();
-  timeEl.innerHTML = "~" + Math.round(weeks) + " weeks / ~" + months.toFixed(1) + " months to target<br><span class='projected-date'>Est. " + dateStr + "</span>";
+  timeEl.innerHTML = "~" + Math.round(days) + " days / ~" + Math.round(weeks) + " weeks / ~" + months.toFixed(1) + " months<br><span class='projected-date'>Est. " + dateStr + "</span>";
 }
 
 function updateGoalPlanner() {
