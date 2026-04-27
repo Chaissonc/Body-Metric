@@ -1,13 +1,16 @@
+// This script runs on every topic page (gut-health, supplements, etc.)
+// It reads topicData — a variable each topic's own script.js defines — and renders the full page
 (function () {
   var d = topicData;
 
+  // Fill in the header: red tag line + count, headline, and description
   document.getElementById("topic-tag").innerHTML =
     d.meta + '<span class="topic-tag-count"> • ' + d.count + '</span>';
-
   document.getElementById("topic-headline").textContent = d.headline;
+  document.getElementById("topic-desc").textContent     = d.desc;
 
-  document.getElementById("topic-desc").textContent = d.desc;
-
+  // Returns the HTML for an evidence pill badge
+  // "trend" gets special styling since it's not actually backed by strong evidence
   function evidencePill(level) {
     if (level === "trend") {
       return '<span class="topic-evidence evidence-trend">TREND • PLACEBO</span>';
@@ -17,6 +20,7 @@
       level.toUpperCase() + ' EVIDENCE</span>';
   }
 
+  // Renders the red-bordered "Sarx Pick" featured card at the top of the list
   function renderFeatured(item) {
     var metaItems = item.meta || [
       { label: "TARGET", value: item.target },
@@ -44,6 +48,7 @@
     '</div>';
   }
 
+  // Renders a section header (e.g. "Daily Gut Practices") with a small tag on the right
   function renderSection(item) {
     var html = '<div class="topic-section">' +
       '<p class="topic-section-title">' + item.title + '</p>' +
@@ -53,6 +58,7 @@
     return html;
   }
 
+  // Renders the red summary box at the bottom of the list
   function renderSummary(item) {
     return '<div class="topic-summary">' +
       '<span class="topic-summary-icon">' + (item.icon || 'ℹ️') + '</span>' +
@@ -60,6 +66,7 @@
     '</div>';
   }
 
+  // Renders a standard topic card (emoji, title, dosage, timing, evidence pill)
   function renderCard(item, delay) {
     return '<div class="topic-card" style="animation-delay:' + delay + 's">' +
       '<div class="lib-icon">' + item.emoji + '</div>' +
@@ -72,10 +79,13 @@
     '</div>';
   }
 
+  // Main render function — loops through topicData.items and builds the list HTML
+  // Sections are held as "pending" until a card that passes the filter shows up below them
+  // This way empty sections don't appear when filtering
   function render(filter) {
-    var list = document.getElementById("topic-list");
-    var html = "";
-    var delay = 0;
+    var list           = document.getElementById("topic-list");
+    var html           = "";
+    var delay          = 0;
     var pendingSection = null;
 
     d.items.forEach(function (item) {
@@ -85,6 +95,7 @@
           delay += 0.07;
         }
       } else if (item.type === "section") {
+        // Don't render the section header yet — wait to see if any cards under it pass the filter
         pendingSection = item;
       } else if (item.type === "summary") {
         html += renderSummary(item);
@@ -95,6 +106,7 @@
           (filter === "trend"    && item.trend)                 ||
           (filter === "sarxpick" && item.sarxPick);
         if (show) {
+          // Only now render the pending section header since we know at least one card follows it
           if (pendingSection) { html += renderSection(pendingSection); pendingSection = null; }
           html += renderCard(item, delay);
           delay += 0.07;
@@ -107,6 +119,7 @@
 
   render("all");
 
+  // Filter buttons at the top of the topic page (All, High Evidence, etc.)
   document.getElementById("topic-filters").addEventListener("click", function (e) {
     var btn = e.target.closest(".lib-filter");
     if (!btn) return;

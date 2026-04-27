@@ -1,3 +1,7 @@
+/* ─────────────────────────────────────────
+   LEARNING — LIBRARY CARDS
+   The clickable topic cards on the main Learn page
+───────────────────────────────────────── */
 .lib-list {
   display: flex;
   flex-direction: column;
@@ -16,6 +20,7 @@
   cursor: default;
 }
 
+/* Square emoji icon on the left side of each card */
 .lib-icon {
   width: 52px;
   height: 52px;
@@ -27,7 +32,7 @@
   flex-shrink: 0;
 }
 
-.lib-card-body { flex: 1; min-width: 0; }
+.lib-card-body { flex: 1; min-width: 0; } /* min-width: 0 prevents long titles from overflowing */
 
 .lib-card-title {
   font-size: 0.95rem;
@@ -36,6 +41,7 @@
   margin-bottom: 4px;
 }
 
+/* The small meta line: "BODY • 8 MIN • 10 ESSENTIALS" */
 .lib-card-meta {
   font-size: 0.62rem;
   font-weight: 600;
@@ -43,6 +49,7 @@
   color: #bbb;
 }
 
+/* Right side of the card — holds the NEW badge and the arrow chevron */
 .lib-card-right {
   display: flex;
   align-items: center;
@@ -51,6 +58,7 @@
   color: #ccc;
 }
 
+/* "NEW!" badge that shows on recently added topics */
 .lib-new-badge {
   background: #CC2325;
   color: #fff;
@@ -62,8 +70,13 @@
 }
 
 
+/* ─────────────────────────────────────────
+   LEARNING — TOPIC PAGE HEADER
+   The headline block at the top of each topic (Gut Health, Supplements, etc.)
+───────────────────────────────────────── */
 .topic-header { margin-bottom: 20px; }
 
+/* Small red label showing category and read time */
 .topic-tag {
   font-size: 0.62rem;
   font-weight: 700;
@@ -88,6 +101,13 @@
   line-height: 1.6;
 }
 
+
+/* ─────────────────────────────────────────
+   LEARNING — TOPIC PAGE CONTENT
+   Section headers, cards, and the featured Sarx Pick card
+───────────────────────────────────────── */
+
+/* Section label row — shows the section title on the left and a tag on the right */
 .topic-section {
   display: flex;
   justify-content: space-between;
@@ -108,6 +128,16 @@
   color: #bbb;
 }
 
+/* Optional description under a section header (used for the "Trend Aisle" section) */
+.topic-section-desc {
+  font-size: 0.78rem;
+  color: #999;
+  line-height: 1.55;
+  margin-top: -4px;
+  margin-bottom: 4px;
+}
+
+/* The red-bordered "Sarx Pick" featured card */
 .topic-featured {
   border: 2px solid #CC2325;
   border-radius: 16px;
@@ -119,6 +149,7 @@
 .topic-featured-top  { display: flex; align-items: flex-start; gap: 12px; }
 .topic-featured-body { flex: 1; min-width: 0; }
 
+/* "SARX PICK" badge in the top right corner of the featured card */
 .topic-featured-badge {
   background: #CC2325;
   color: #fff;
@@ -145,20 +176,23 @@
   line-height: 1.4;
 }
 
+/* Thin horizontal line inside the featured card, separating top from meta row */
 .topic-featured-divider {
   border: none;
   border-top: 1px solid #F0F0F5;
   margin: 12px 0;
 }
 
+/* Bottom row of the featured card — Target, When, and evidence pill */
 .topic-featured-meta  { display: flex; align-items: center; gap: 20px; }
-.topic-meta-spacer    { flex: 1; }
+.topic-meta-spacer    { flex: 1; } /* pushes the evidence pill to the far right */
 .topic-meta-label     { font-size: 0.55rem; font-weight: 700; letter-spacing: 0.1em; color: #bbb; margin-bottom: 2px; }
 .topic-meta-value     { font-size: 0.85rem; font-weight: 700; color: #CC2325; }
-.topic-meta-when      { color: #1a1a1a; }
+.topic-meta-when      { color: #1a1a1a; } /* overrides the red on the "WHEN" value */
 
 .topic-list   { display: flex; flex-direction: column; gap: 10px; }
 
+/* Standard topic card — emoji, title, dosage/timing, and evidence pill */
 .topic-card {
   display: flex;
   align-items: center;
@@ -172,8 +206,9 @@
 
 .topic-card-body   { flex: 1; min-width: 0; }
 .topic-card-dosage { font-size: 0.72rem; font-weight: 700; color: #CC2325; margin-top: 3px; }
-.topic-card-when   { font-weight: 600; color: #bbb; }
+.topic-card-when   { font-weight: 600; color: #bbb; } /* the lighter "DAILY" or "WITH MEALS" part */
 
+/* Evidence tier pill — shown on every card */
 .topic-evidence {
   display: inline-flex;
   align-items: center;
@@ -187,20 +222,18 @@
 
 .topic-evidence-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
 
+/* Green for strong clinical evidence */
 .evidence-high   { color: #34C759; }
 .evidence-high   .topic-evidence-dot { background: #34C759; }
+
+/* Orange for moderate evidence */
 .evidence-medium { color: #FF9500; }
 .evidence-medium .topic-evidence-dot { background: #FF9500; }
+
+/* Grey italic for trend/placebo — intentionally de-emphasized */
 .evidence-trend  { color: #aaa; font-style: italic; }
 
-.topic-section-desc {
-  font-size: 0.78rem;
-  color: #999;
-  line-height: 1.55;
-  margin-top: -4px;
-  margin-bottom: 4px;
-}
-
+/* Red summary box at the very bottom of each topic — a closing takeaway */
 .topic-summary {
   display: flex;
   align-items: flex-start;
@@ -219,5 +252,3 @@
   color: #fff;
   line-height: 1.6;
 }
-
-

@@ -1,5 +1,6 @@
 /* ─────────────────────────────────────────
-   STATS BAR
+   HEALTH INDEX — STATS BAR
+   The small scrolling row of chips at the top (Age, Height, Weight, etc.)
 ───────────────────────────────────────── */
 .stats-bar {
   display: flex;
@@ -29,19 +30,22 @@
    HEALTH INDEX — METRIC CARDS
 ───────────────────────────────────────── */
 
-/* Swipeable TDEE/BMR card — must come before .metric-card so padding: 16px wins */
-.slide-card         { overflow: hidden; padding: 0; position: relative; cursor: grab; }
-.slide-card:active  { cursor: grabbing; }
+/* The TDEE/BMR card is swipeable — padding: 0 so the slide panels sit flush inside */
+/* This rule must come before .metric-card so the padding: 16px doesn't override it */
+.slide-card        { overflow: hidden; padding: 0; position: relative; cursor: grab; }
+.slide-card:active { cursor: grabbing; }
 
+/* Each slide panel (TDEE and BMR) is absolutely positioned so they overlap */
 .slide-panel {
   position: absolute;
-  top: 0; left: 0; right: 0; bottom: 28px;
+  top: 0; left: 0; right: 0; bottom: 28px; /* bottom gap for the dots */
   padding: 16px;
   display: flex;
   flex-direction: column;
   transition: transform 0.3s ease;
 }
 
+/* Indicator dots at the bottom of the swipe card */
 .slide-dots {
   position: absolute;
   bottom: 10px;
@@ -54,6 +58,7 @@
 .dot        { width: 6px; height: 6px; border-radius: 50%; background: #D0D0D8; transition: background 0.2s; }
 .dot.active { background: #1a1a1a; }
 
+/* The two small side-by-side cards (BMI + TDEE/BMR) */
 .metric-pair {
   display: flex;
   gap: 12px;
@@ -69,8 +74,10 @@
   flex-direction: column;
 }
 
+/* Square aspect ratio for the cards in the pair — looks balanced on any screen width */
 .metric-pair .metric-card { aspect-ratio: 1; }
 
+/* Full-width cards (body fat and weight) */
 .metric-card.full {
   flex: none;
   width: 100%;
@@ -86,6 +93,7 @@
   margin-bottom: 6px;
 }
 
+/* The big number inside a card */
 .metric-value {
   display: block;
   font-size: 3rem;
@@ -103,6 +111,7 @@
   font-weight: 500;
 }
 
+/* Row that holds the large number and the ideal range label side by side */
 .metric-value-row {
   display: flex;
   align-items: flex-start;
@@ -110,6 +119,7 @@
   margin-bottom: 14px;
 }
 
+/* Slightly smaller number style used on the full-width cards */
 .metric-value-lg {
   display: block;
   font-size: 2.1rem;
@@ -121,6 +131,7 @@
 
 /* ─────────────────────────────────────────
    HEALTH INDEX — GRADIENT BARS
+   The colored bars under body fat and weight metrics
 ───────────────────────────────────────── */
 .gbar-wrap { margin-top: 4px; }
 
@@ -131,6 +142,7 @@
   margin-bottom: 8px;
 }
 
+/* Blue → green → yellow → red for body fat */
 .bf-gradient {
   background: linear-gradient(to right,
     #2196f3 0%,
@@ -142,6 +154,7 @@
     #f44336 100%);
 }
 
+/* Blue → green → orange → red for weight */
 .weight-gradient {
   background: linear-gradient(to right,
     #2196f3 0%, #2196f3 12%,
@@ -150,6 +163,7 @@
     #f44336 84%, #f44336 100%);
 }
 
+/* The white dot with dark border that slides along the bar */
 .gbar-dot {
   position: absolute;
   top: 50%;
@@ -159,8 +173,8 @@
   background: #fff;
   border: 2.5px solid #1a1a1a;
   border-radius: 50%;
-  transition: left 0.9s cubic-bezier(0.34, 1.56, 0.64, 1);
-  left: 5%;
+  transition: left 0.9s cubic-bezier(0.34, 1.56, 0.64, 1); /* spring easing so it bounces into place */
+  left: 5%; /* starting position — JS moves it to the real value */
 }
 
 .gbar-labels      { display: flex; justify-content: space-between; }
@@ -173,6 +187,7 @@
   letter-spacing: 0.04em;
 }
 
+/* The "IDEAL RANGE" label + value shown to the right of the big number */
 .bf-ideal-range {
   text-align: right;
   display: flex;
@@ -194,5 +209,3 @@
   color: #777;
   line-height: 1;
 }
-
-

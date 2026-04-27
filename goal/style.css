@@ -1,6 +1,8 @@
 /* ─────────────────────────────────────────
-   GOAL PAGE
+   PLAN PAGE — CALORIE TARGET CARD
 ───────────────────────────────────────── */
+
+/* White card that wraps the calorie input */
 .obj-cal-card {
   background: #fff;
   border-radius: 14px;
@@ -14,6 +16,7 @@
   margin-bottom: 10px;
 }
 
+/* The dashed border box around the calorie input + unit */
 .obj-cal-edit {
   position: relative;
   display: inline-flex;
@@ -25,6 +28,7 @@
   cursor: text;
 }
 
+/* Small pencil icon inside the dashed box */
 .edit-icon {
   position: absolute;
   top: 8px;
@@ -35,6 +39,7 @@
   pointer-events: none;
 }
 
+/* The big calorie number input itself — no borders, blends into the card */
 .daily-target-input {
   background: transparent;
   border: none;
@@ -44,16 +49,19 @@
   font-weight: 800;
   color: #1a1a1a;
   width: 1ch;
-  min-width: 2.5ch;
-  max-width: 3.5ch;
+  min-width: 4ch;  /* wide enough to show 4 digits comfortably */
+  max-width: 4.5ch;
   line-height: 1;
 }
 
-.daily-target-input::placeholder          { color: #c0c0c8; }
+.daily-target-input::placeholder { color: #c0c0c8; }
+
+/* Hide the number spinner arrows on all browsers */
 .daily-target-input::-webkit-inner-spin-button,
 .daily-target-input::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
-.daily-target-input                       { -moz-appearance: textfield; appearance: textfield; }
+.daily-target-input { -moz-appearance: textfield; appearance: textfield; }
 
+/* "KCAL" label to the right of the calorie number */
 .daily-target-unit {
   font-size: 0.85rem;
   font-weight: 700;
@@ -61,17 +69,22 @@
   color: #aaa;
 }
 
+/* Shows the calorie deficit or surplus relative to TDEE */
 .cal-delta {
   font-size: 1.05rem;
   font-weight: 600;
   margin-top: 6px;
-  min-height: 1.2em;
+  min-height: 1.2em; /* keeps layout stable when empty */
 }
 
+/* Both deficit and surplus use red — intentional, it draws attention */
 .cal-deficit,
 .cal-surplus { color: #CC2325; }
+
+/* Dangerously low calorie warning */
 .cal-error   { color: #f0a020; }
 
+/* The status line under the weight card ("Cutting -15 lbs to 170" or a warning) */
 .goal-status-line {
   font-size: 0.82rem;
   font-weight: 500;
@@ -87,6 +100,7 @@
   margin-top: 4px;
 }
 
+/* The "~45 days / ~6 weeks / ~1.5 months" estimate */
 .time-to-goal {
   font-size: 0.88rem;
   font-weight: 600;
@@ -95,6 +109,7 @@
   margin-top: 1px;
 }
 
+/* The "Est. Jan 15, 2026" line under the time estimate */
 .projected-date {
   font-size: 0.78rem;
   font-weight: 500;
@@ -103,8 +118,10 @@
 
 
 /* ─────────────────────────────────────────
-   GOAL PAGE — MACROS
+   PLAN PAGE — MACROS
 ───────────────────────────────────────── */
+
+/* Row of three macro columns (Protein / Carbs / Fats) */
 .macro-row {
   display: flex;
   background: #fff;
@@ -121,6 +138,7 @@
   gap: 5px;
 }
 
+/* Vertical divider between each macro column */
 .macro-item + .macro-item { border-left: 1.5px solid #E0E0E5; }
 
 .macro-label {
@@ -132,6 +150,8 @@
 
 .macro-val                        { display: flex; align-items: baseline; gap: 2px; }
 .macro-val span:first-child       { font-size: 1.45rem; font-weight: 800; color: #1a1a1a; }
+
+/* When the macro row hasn't been filled in yet, numbers show as a light grey "--" */
 .macro-row.is-empty .macro-val span:first-child { color: #c0c0c8; }
 
 .macro-unit {
@@ -146,5 +166,3 @@
   color: #bbb;
   letter-spacing: 0.04em;
 }
-
-

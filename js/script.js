@@ -1,20 +1,24 @@
+// If the user already has data saved, skip the form and send them straight to their health index.
+// The ?edit param lets them come back here to change their numbers.
 if (localStorage.getItem("bm_tdee") && !new URLSearchParams(window.location.search).has('edit')) {
   window.location.replace("healthindex/");
 }
 
-let selectedSex = null;
+let selectedSex = null; // tracked separately because it's a button, not a real input field
 
+// Called when the user taps Male or Female
 function selectSex(btn, sex) {
   selectedSex = sex;
   document.querySelectorAll(".seg-btn[data-sex]").forEach(b => b.classList.remove("active"));
   btn.classList.add("active");
 }
 
+// Runs all the health math and saves everything to localStorage, then redirects to the index page
 function calculate() {
-  const weight       = parseFloat(document.querySelector(".bodyWeight").value);
-  const heightFt     = parseFloat(document.querySelector(".heightFt").value);
-  const heightIn     = parseFloat(document.querySelector(".heightIn").value) || 0;
-  const age          = parseFloat(document.querySelector(".age").value);
+  const weight         = parseFloat(document.querySelector(".bodyWeight").value);
+  const heightFt       = parseFloat(document.querySelector(".heightFt").value);
+  const heightIn       = parseFloat(document.querySelector(".heightIn").value) || 0;
+  const age            = parseFloat(document.querySelector(".age").value);
   const activityFactor = parseFloat(document.querySelector(".activitySelect").value);
 
   if (!weight || isNaN(heightFt) || !age || !selectedSex || !activityFactor) {
@@ -23,24 +27,30 @@ function calculate() {
   }
   document.getElementById("formError").textContent = "";
 
+  // Convert everything to metric for the formulas
   const totalIn  = heightFt * 12 + heightIn;
   const weightKg = weight / 2.205;
   const heightCm = totalIn * 2.54;
   const heightM  = heightCm / 100;
 
+  // Mifflin-St Jeor formula for BMR (basal metabolic rate)
   const bmrBase = 10 * weightKg + 6.25 * heightCm - 5 * age;
   const bmr     = selectedSex === "male" ? bmrBase + 5 : bmrBase - 161;
   const bmi     = weightKg / (heightM * heightM);
-  const tdee    = bmr * activityFactor;
-  const sexFactor = selectedSex === "male" ? 1 : 0;
-  const bodyFat = Math.max(0, 1.2 * bmi + 0.23 * age - 10.8 * sexFactor - 5.4);
+  const tdee    = bmr * activityFactor; // total calories the user burns per day
 
+  // Deurenberg body fat estimate (based on BMI, age, sex — not as accurate as a scan but close enough)
+  const sexFactor = selectedSex === "male" ? 1 : 0;
+  const bodyFat   = Math.max(0, 1.2 * bmi + 0.23 * age - 10.8 * sexFactor - 5.4);
+
+  // Devine formula for ideal body weight
   const inchesOver5ft = Math.max(0, totalIn - 60);
   const ibwKg    = selectedSex === "male" ? 50 + 2.3 * inchesOver5ft : 45.5 + 2.3 * inchesOver5ft;
   const ibwLbs   = ibwKg * 2.205;
   const idealMin = ibwLbs;
-  const idealMax = ibwLbs + 30;
+  const idealMax = ibwLbs + 30; // 30lb window above ideal
 
+  // Minimum healthy weight based on BMI 18.5 (start of underweight threshold)
   const minWeightKg  = 18.5 * (heightM * heightM);
   const minWeightLbs = minWeightKg * 2.205;
 
@@ -49,11 +59,13 @@ function calculate() {
   else if (bmi >= 25 && bmi < 30) bmiCat = "Overweight";
   else if (bmi >= 30) bmiCat = "Obese";
 
+  // Status is OPTIMAL only if both BMI and body fat are in the healthy range
   const isOptimal =
     bmi >= 18.5 && bmi < 25 &&
-    bodyFat >= (selectedSex === "male" ? 8 : 16) &&
+    bodyFat >= (selectedSex === "male" ? 8  : 16) &&
     bodyFat <= (selectedSex === "male" ? 20 : 28);
 
+  // Save everything so the index, plan, and other pages can read it
   localStorage.setItem("bm_age",       age);
   localStorage.setItem("bm_heightFt",  heightFt);
   localStorage.setItem("bm_heightIn",  heightIn);
@@ -73,6 +85,7 @@ function calculate() {
   window.location.href = "healthindex/";
 }
 
+// When the page loads, fill the form back in with whatever the user entered last time
 document.addEventListener("DOMContentLoaded", function () {
   const age      = localStorage.getItem("bm_age");
   const heightFt = localStorage.getItem("bm_heightFt");
