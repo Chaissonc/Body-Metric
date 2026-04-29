@@ -1,11 +1,17 @@
 function getPersonalizedDosage(item) {
   var weight = parseFloat(localStorage.getItem("bm_weight"));
   var tdee   = parseFloat(localStorage.getItem("bm_tdee"));
-  if (item.id === "daily-protein-target" && weight) {
-    return Math.round(weight * 0.7) + "–" + Math.round(weight * 1.0) + "g / day";
+  if (item.id === "daily-protein-target") {
+    var goalWeight = parseFloat(localStorage.getItem("bm_goalWeight"));
+    if (goalWeight) return goalWeight + "g / day";
+    if (weight) return Math.round(weight * 0.7) + "–" + Math.round(weight * 1.0) + "g / day";
   }
   if (item.id === "daily-fiber-target" && tdee) {
-    return Math.round((tdee / 1000) * 14) + "g / day";
+    return Math.min(Math.round((tdee / 1000) * 14), 38) + "g / day";
+  }
+  if (item.id === "bodyweight-hydration" && weight) {
+    var oz = Math.round(weight * 0.5);
+    return oz + " oz / day (~" + Math.round(oz / 8) + " cups)";
   }
   return null;
 }

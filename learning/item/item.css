@@ -137,10 +137,10 @@
 
 /* Bold title before the colon in a bullet */
 .item-bullet-title {
-  font-size: 0.85rem;
+  font-size: 1rem;
   font-weight: 700;
   color: #111;
-  margin: 0 0 3px;
+  margin: 0 0 4px;
 }
 
 /* Body text after the colon */
